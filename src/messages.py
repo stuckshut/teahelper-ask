@@ -22,7 +22,6 @@ def get_help_response():
     teas = []
     for tea, info in tea_info.iteritems():
         teas.append(tea)
-    msg = ", ".join(teas)
-    k = msg.rfind(',')
-    msg = msg[:k] + ", or" + msg[k+1:]
-    return msg
+    teas[-1] = 'or ' + teas[-1]
+    teas_str = ", ".join(teas)
+    return help_msg.format(teas_str)
