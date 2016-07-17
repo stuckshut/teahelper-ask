@@ -1,3 +1,5 @@
+Implemented Intents:
+```
 {
   "intents": [
     {
@@ -32,3 +34,4 @@
     }
   ]
 }
+```

@@ -2,6 +2,8 @@ from __future__ import print_function
 
 import json
 
+from response import Response
+
 RAW_RESPONSE = {
     "version": "1.0",
     "response": {
@@ -42,6 +44,10 @@ tea_times = {
 
 
 def lambda_handler(event, context):
+
+    session = Session(event['session'])
+    request = Request(event['request'])
+
     type = event['request']['intent']['slots']['TeaType']['value']
     print("tea type = " + type)
     time = tea_times[type]['time']
@@ -51,15 +57,28 @@ def lambda_handler(event, context):
     return create_response(message=message)
 
 
-def create_response(message=None, end_session=True):
-    response = RAW_RESPONSE
 
-    if message:
-        response['response'] = {
-            'outputSpeech': {
-                'type': 'PlainText',
-                'text': message
-            }
-        }
-    response['response']['shouldEndSession'] = end_session
-    return response
+class Request:
+
+    def __init__(self, request):
+        self.type = request['type']
+        self.timestamp = request['timestamp']
+        self.requestId = request['requestId']
+
+        if self.type is 'IntentRequest':
+            self.intent_name = request['intent']['name']
+            self.slots = request['intent']['slots']
+        elif self.type is 'SessionEndedRequest':
+            self.reason = request['reason']
+
+
+class Session:
+
+    def __init__(self, session):
+        self.new = session['new']
+        self.sessionId = session['sessionId']
+        self.applicationId = session['application']['applicationId']
+        self.attributes = session['attributes']
+        self.userId = session['user']['userId']
+        self.accessToken = session['user']['accessToken']
+
