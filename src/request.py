@@ -7,7 +7,7 @@ class Request:
 
         if self.type == 'IntentRequest':
             self.intent_name = request['intent']['name']
-            self.slots = request['intent']['slots']
+            self.slots = request['intent'].get('slots', None)
         elif self.type == 'SessionEndedRequest':
             self.reason = request['reason']
 
