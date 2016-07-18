@@ -46,6 +46,10 @@ class Response(object):
             'type': 'PlainText',
             'text': message
         }
+        response.reprompt = {
+            'type': 'PlainText'
+            'text': message
+        }
         response.shouldEndSession = False
 
         return response
@@ -64,7 +68,7 @@ class Response(object):
             out['response']['card'] = self.card
 
         if self.reprompt is not None:
-            out['response']['reprompt'] = self.reprompt
+            out['response']['reprompt']['outputSpeech'] = self.reprompt
 
         if self.sessionAttributes is not None:
             out['sessionAttributes'] = self.sessionAttributes
