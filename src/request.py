@@ -16,7 +16,7 @@ class Session:
 
     def __init__(self, session):
         self.new = session['new']
-        self.sessionId = session['sessionId']
+        self.sessionId = session.get('sessionId', None)
         self.applicationId = session['application']['applicationId']
-        self.attributes = session['attributes']
-        self.userId = session['user']['userId']
+        self.attributes = session.get('attributes', None)
+        self.user = session.get('user', None)
