@@ -50,8 +50,7 @@ class Response(object):
 
         return response
 
-    def __repr__(self):
-        super(object, self).__repr__()
+    def to_dict(self):
         out = dict({
             "version": self.version,
             "response": {
@@ -70,7 +69,7 @@ class Response(object):
         if self.sessionAttributes is not None:
             out['sessionAttributes'] = self.sessionAttributes
 
-        return out.__repr__()
+        return out
 
     def create_card(self,
                     card_type=None,

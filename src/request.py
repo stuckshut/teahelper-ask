@@ -5,10 +5,10 @@ class Request:
         self.timestamp = request['timestamp']
         self.requestId = request['requestId']
 
-        if self.type is 'IntentRequest':
+        if self.type == 'IntentRequest':
             self.intent_name = request['intent']['name']
             self.slots = request['intent']['slots']
-        elif self.type is 'SessionEndedRequest':
+        elif self.type == 'SessionEndedRequest':
             self.reason = request['reason']
 
 
@@ -20,5 +20,3 @@ class Session:
         self.applicationId = session['application']['applicationId']
         self.attributes = session['attributes']
         self.userId = session['user']['userId']
-        self.accessToken = session['user']['accessToken']
-

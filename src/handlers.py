@@ -11,15 +11,24 @@ def on_launch(request, session):
 
 def on_intent(request, session):
     if request.intent_name == 'GetTeaInfo':
-        if 'TeaType' in request.slots and request.slots['TeaType'] in tea_info:
-            tea_type = request.slots['TeaType']
-            time = tea_info['tea_type']['time']
-            temp = tea_info['tea_type']['temp']
-            return Response.create_tell_response(
-                messages.get_steeping_response(tea_type, time, temp)
-            )
+        if 'TeaType' in request.slots.keys():
+            if request.slots['TeaType']['value'] in tea_info.keys():
+                tea_type = request.slots['TeaType']['value']
+                time = tea_info[tea_type]['time']
+                temp = tea_info[tea_type]['temp']
+                return Response.create_tell_response(
+                    messages.get_steeping_response(tea_type, time, temp)
+                )
 
-    # Other intents ...
+    elif request.intent_name == 'AMAZON.HelpIntent':
+        return Response.create_ask_response(
+            messages.get_help_response()
+        )
+
+    elif request.intent_name == 'AMAZON.StopIntent' or request.intent_name == 'AMAZON.CancelIntent':
+        return Response.create_tell_response(
+            messages.get_end_response()
+        )
 
     # If we drop through all the intents, we probably failed somehow
     return on_error(request, session)

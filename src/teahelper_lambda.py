@@ -18,4 +18,4 @@ def lambda_handler(event, context):
     else:
         handler = on_error
 
-    return handler(request, session)
+    return handler(request, session).to_dict()
