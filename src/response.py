@@ -32,7 +32,7 @@ class Response(object):
     def create_tell_response(cls, message):
         response = Response()
         response.outputSpeech = {
-            'type': 'string',
+            'type': 'PlainText',
             'text': message
         }
         response.shouldEndSession = True
@@ -43,7 +43,7 @@ class Response(object):
     def create_ask_response(cls, message):
         response = Response()
         response.outputSpeech = {
-            'type': 'string',
+            'type': 'PlainText',
             'text': message
         }
         response.shouldEndSession = False
