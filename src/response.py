@@ -47,7 +47,7 @@ class Response(object):
             'text': message
         }
         response.reprompt = {
-            'type': 'PlainText'
+            'type': 'PlainText',
             'text': message
         }
         response.shouldEndSession = False
