@@ -79,7 +79,7 @@ class Response(object):
 
     @staticmethod
     def build_message(message):
-        if str.find('pu-erh') is not -1:
+        if message.find('pu-erh') is not -1:
             message = message.replace('pu-erh', '<say-as>poo-air</say-as>')
             outputSpeech = {
                 'type': 'SSML',
