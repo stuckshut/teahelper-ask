@@ -31,10 +31,7 @@ class Response(object):
     @classmethod
     def create_tell_response(cls, message):
         response = Response()
-        response.outputSpeech = {
-            'type': 'PlainText',
-            'text': message
-        }
+        response.outputSpeech = cls.build_message(message)
         response.shouldEndSession = True
 
         return response
@@ -42,15 +39,9 @@ class Response(object):
     @classmethod
     def create_ask_response(cls, message):
         response = Response()
-        response.outputSpeech = {
-            'type': 'PlainText',
-            'text': message
-        }
+        response.outputSpeech = cls.build_message(message)
         response.reprompt = {
-            'outputSpeech': {
-                'type': 'PlainText',
-                'text': message
-            }
+            'outputSpeech': response.outputSpeech
         }
         response.shouldEndSession = False
 
@@ -85,3 +76,18 @@ class Response(object):
                     image_small=None,
                     image_large=None):
         pass
+
+    @staticmethod
+    def build_message(message):
+        if str.find('pu-erh') is not -1:
+            message = message.replace('pu-erh', '<say-as>poo-air</say-as>')
+            outputSpeech = {
+                'type': 'SSML',
+                'ssml': message
+            }
+        else:
+            outputSpeech = {
+                'type': 'PlainText',
+                'text': message
+            }
+        return outputSpeech
