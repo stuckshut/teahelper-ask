@@ -83,7 +83,7 @@ class Response(object):
             message = message.replace('pu-erh', '<say-as>poo-air</say-as>')
             outputSpeech = {
                 'type': 'SSML',
-                'ssml': message
+                'ssml': '<speak>' + message + '</speak>'
             }
         else:
             outputSpeech = {
