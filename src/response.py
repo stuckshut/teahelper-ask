@@ -40,9 +40,9 @@ class Response(object):
     def create_ask_response(cls, message, prompt):
         response = Response()
         response.outputSpeech = cls.build_message(message)
-        response.promptSpeech = cls.build_message(prompt)
-        response.reprompt = {
-            'outputSpeech': response.promptSpeech
+        prompt_speech = cls.build_message(prompt)
+        response.promptSpeech = {
+            'outputSpeech': prompt_speech
         }
         response.shouldEndSession = False
 
