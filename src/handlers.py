@@ -5,6 +5,7 @@ from response import Response
 
 def on_launch(request, session):
     return Response.create_ask_response(
+        messages.get_welcome_response(),
         messages.get_welcome_response()
     )
 
@@ -21,11 +22,13 @@ def on_intent(request, session):
                 )
             else:
                 return Response.create_ask_response(
-                    messages.get_help_response()
+                    messages.get_help_response() + ' ' + messages.get_prompt_response(),
+                    messages.get_prompt_response()
                 )
     elif request.intent_name == 'AMAZON.HelpIntent':
         return Response.create_ask_response(
-            messages.get_help_response()
+            messages.get_help_response() + ' ' + messages.get_prompt_response(),
+            messages.get_prompt_response()
         )
 
     elif request.intent_name == 'AMAZON.StopIntent' or request.intent_name == 'AMAZON.CancelIntent':

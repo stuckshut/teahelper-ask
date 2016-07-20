@@ -14,7 +14,7 @@ class Response(object):
             'text': 'Default Response'
         }
         self.card = None
-        self.reprompt = None
+        self.promptSpeech = None
         """
         self.card = {
             "type": "string",
@@ -37,11 +37,12 @@ class Response(object):
         return response
 
     @classmethod
-    def create_ask_response(cls, message):
+    def create_ask_response(cls, message, prompt):
         response = Response()
         response.outputSpeech = cls.build_message(message)
+        response.promptSpeech = cls.build_message(prompt)
         response.reprompt = {
-            'outputSpeech': response.outputSpeech
+            'outputSpeech': response.promptSpeech
         }
         response.shouldEndSession = False
 
@@ -60,8 +61,8 @@ class Response(object):
         if self.card is not None:
             out['response']['card'] = self.card
 
-        if self.reprompt is not None:
-            out['response']['reprompt'] = self.reprompt
+        if self.promptSpeech is not None:
+            out['response']['reprompt'] = self.promptSpeech
 
         if self.sessionAttributes is not None:
             out['sessionAttributes'] = self.sessionAttributes
